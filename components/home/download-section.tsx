@@ -1,56 +1,130 @@
+"use client";
+
 import Image from "next/image";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
 
-const phoneSrc = "/images/phone-app-balance.avif";
-const leatherTextureSrc = "/images/leather-texture.jpg";
+const phoneSrc = "/images/phone-app-download.avif";
+const leatherTextureSrc = "/images/leather-texture.avif";
 
 export function DownloadSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 0.1, 0.25, 1] as const,
+      },
+    },
+  };
+
+  const phoneVariants = {
+    hidden: { opacity: 0, y: 100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1] as const,
+        delay: 0.3,
+      },
+    },
+  };
+
   return (
-    <section className="pb-20">
+    <section className="pb-20" ref={sectionRef}>
       <Container>
         <div className="relative overflow-hidden rounded-[48px] bg-black text-white">
           {/* Leather texture background */}
-          <div className="absolute inset-0">
+          <motion.div
+            className="absolute inset-0"
+            initial={{ scale: 1.1 }}
+            animate={isInView ? { scale: 1 } : { scale: 1.1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          >
             <Image
               src={leatherTextureSrc}
               alt=""
               fill
               className="object-cover"
             />
-          </div>
+          </motion.div>
 
-          <div className="relative grid min-h-125 md:grid-cols-2">
+          <div className="relative grid min-h-140 md:grid-cols-2">
             {/* Left content */}
-            <div className="flex flex-col justify-center space-y-6 px-8 py-16 sm:px-16 lg:px-16">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <motion.div
+              className="flex flex-col justify-center space-y-6 px-8 py-16 sm:px-16 lg:px-16"
+              variants={containerVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+            >
+              <motion.h2
+                className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+                variants={itemVariants}
+              >
                 Money, Forever
                 <br />
                 yours
-              </h2>
-              <p className="max-w-sm text-xl text-white sm:text-2xl">
+              </motion.h2>
+              <motion.p
+                className="max-w-sm text-xl text-white sm:text-2xl font-medium"
+                variants={itemVariants}
+              >
                 Ditch the wallets, skip the exchanges, and forget the banks.
-              </p>
-              <div>
-                <Button className="rounded-full bg-white px-8 py-6 text-base font-medium text-black hover:bg-white/90">
-                  Download App
+              </motion.p>
+              <motion.div variants={itemVariants}>
+                <Button
+                  asChild
+                  className="group relative rounded-full bg-white text-base px-8! py-6 font-medium text-black transition-all duration-300 hover:bg-white/90 hover:cursor-pointer hover:pr-12!"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Download App
+                    <ArrowRight className="absolute right-6 h-5 w-5 opacity-0 transition-all duration-300 group-hover:opacity-100" />
+                  </motion.button>
                 </Button>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Right phone - clipped */}
             <div className="relative hidden overflow-hidden md:block">
-              <div className="absolute right-0 top-8 w-85 lg:right-8 lg:w-95">
+              <motion.div
+                className="absolute right-8 top-16 w-80 lg:right-16 lg:w-85"
+                variants={phoneVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              >
                 <Image
                   src={phoneSrc}
                   alt="Avici app on phone"
-                  width={420}
-                  height={820}
+                  width={820}
+                  height={1020}
                   className="h-auto w-full"
                   priority
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>
