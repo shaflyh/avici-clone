@@ -10,7 +10,7 @@ import { Navbar } from "@/components/layout/navbar";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white text-slate-900">
+    <main className="min-h-screen bg-slate-50  text-slate-900">
       <Navbar />
       <div className="flex flex-col gap-24 py-20 sm:gap-28">
         <HeroSection />

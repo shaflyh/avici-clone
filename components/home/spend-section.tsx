@@ -15,7 +15,7 @@ export function SpendSection() {
     <section className="pt-20">
       <Container>
         <div className="mb-32">
-          <p className="text-6xl font-semibold text-slate-200 md:text-8xl">
+          <p className="text-6xl font-semibold text-slate-300 md:text-8xl">
             Spend it, don&apos;t sell it
           </p>
         </div>

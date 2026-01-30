@@ -1,67 +1,138 @@
-import { Gift, HandCoins, ShieldCheck, Utensils } from "lucide-react";
+"use client";
+
+import { useCallback, useEffect, useRef } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import AutoScroll from "embla-carousel-auto-scroll";
+import { Plane, Car, Bed, Utensils, Cross, Briefcase } from "lucide-react";
 
 import { Container } from "@/components/common/container";
 import { Card } from "@/components/ui/card";
 
 const rewards = [
   {
-    title: "Luxury lounges",
-    description: "Access premium airport lounges worldwide.",
-    icon: Gift,
+    title: "Airline miles",
+    description:
+      "Earn miles on purchases and redeem for flights, upgrades, or travel perks",
+    icon: Plane,
   },
   {
-    title: "Dining perks",
-    description: "Rewards at top restaurants and reservations.",
+    title: "Auto Rental Insurances",
+    description:
+      "Skip the extra fees—get complimentary rental car insurance for accidents or theft.",
+    icon: Car,
+  },
+  {
+    title: "Luxury travel",
+    description:
+      "Enjoy room upgrades, free breakfast, late checkouts, and VIP treatment at luxury hotels",
+    icon: Bed,
+  },
+  {
+    title: "Luxury restaurants",
+    description:
+      "Exclusive dining discounts and perks at top-tier restaurants, because fine dining is a lifestyle",
     icon: Utensils,
   },
   {
-    title: "Concierge service",
-    description: "24/7 support for travel and lifestyle.",
-    icon: ShieldCheck,
+    title: "Emergency Services",
+    description:
+      "24/7 emergency medical assistance worldwide through Visa's dedicated helpline",
+    icon: Cross,
   },
   {
-    title: "Cashback",
-    description: "Earn crypto cashback on every spend.",
-    icon: HandCoins,
+    title: "Protection Insurances",
+    description:
+      "Travel with peace of mind—coverage for trip cancellations, lost luggage, and more",
+    icon: Briefcase,
   },
 ];
 
 export function RewardsSection() {
+  const autoScrollRef = useRef(
+    AutoScroll({
+      speed: 1,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+      stopOnFocusIn: true,
+    }),
+  );
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: "start",
+      dragFree: true,
+    },
+    [autoScrollRef.current],
+  );
+
+  const onPointerEnter = useCallback(() => {
+    const autoScroll = autoScrollRef.current;
+    if (autoScroll && autoScroll.isPlaying()) {
+      autoScroll.stop();
+    }
+  }, []);
+
+  const onPointerLeave = useCallback(() => {
+    const autoScroll = autoScrollRef.current;
+    if (autoScroll && !autoScroll.isPlaying()) {
+      autoScroll.play();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    const autoScroll = autoScrollRef.current;
+    if (autoScroll) {
+      autoScroll.play();
+    }
+  }, [emblaApi]);
+
   return (
-    <section>
+    <section className="py-16 md:py-24">
       <Container>
-        <div className="space-y-8">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
-              Visa card rewards
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-              Rewards and benefits.
-            </h2>
-          </div>
-          <div className="flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-4 md:gap-6 md:overflow-visible">
-            {rewards.map((reward) => {
-              const Icon = reward.icon;
-              return (
-                <Card
-                  key={reward.title}
-                  className="min-w-[220px] rounded-3xl border-none bg-white p-6 shadow-sm"
-                >
-                  <span className="inline-flex size-10 items-center justify-center rounded-2xl bg-slate-100 text-slate-900">
-                    <Icon className="size-5" />
+        <div className="text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
+            Visa Card
+          </h2>
+          <h2 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
+            Rewards and Benefits
+          </h2>
+        </div>
+      </Container>
+
+      {/* Carousel - Full width edge to edge */}
+      <div
+        className="mt-10 overflow-hidden"
+        ref={emblaRef}
+        onPointerEnter={onPointerEnter}
+        onPointerLeave={onPointerLeave}
+      >
+        <div className="flex">
+          {rewards.map((reward) => {
+            const Icon = reward.icon;
+            return (
+              <div
+                key={reward.title}
+                className="min-w-0 shrink-0 grow-0 basis-70 pl-4 md:basis-80 md:pl-6 py-2"
+              >
+                <Card className="h-full rounded-2xl border-none bg-white p-6 shadow-sm">
+                  <span className="inline-flex size-16 items-center justify-center text-slate-900">
+                    <Icon className="size-8" strokeWidth={3} />
                   </span>
-                  <h3 className="mt-4 text-sm font-semibold text-slate-900">
+                  <h3 className="text-xl font-semibold text-slate-900">
                     {reward.title}
                   </h3>
-                  <p className="mt-2 text-xs text-slate-500">
+                  <p className="text-base leading-relaxed text-slate-700">
                     {reward.description}
                   </p>
                 </Card>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
