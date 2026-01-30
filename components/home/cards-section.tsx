@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 import { Container } from "@/components/common/container";
 import { Card } from "@/components/ui/card";
@@ -32,8 +33,18 @@ const cardVariants = {
 };
 
 export function CardsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const leftImageY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const rightImageY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+
   return (
-    <section>
+    <section ref={sectionRef}>
       <Container>
         <motion.div
           className="grid gap-6 md:grid-cols-2"
@@ -51,13 +62,15 @@ export function CardsSection() {
                 <p className="text-base sm:text-xl font-medium text-slate-500">
                   Get an Avici Physical Card delivered to your doorstep.
                 </p>
-                <Image
-                  src={cardSrc}
-                  alt="Digital wallet preview"
-                  width={520}
-                  height={520}
-                  className="h-auto w-full"
-                />
+                <motion.div style={{ y: leftImageY }}>
+                  <Image
+                    src={cardSrc}
+                    alt="Digital wallet preview"
+                    width={520}
+                    height={520}
+                    className="h-auto w-full rounded-4xl"
+                  />
+                </motion.div>
               </div>
             </Card>
           </motion.div>
@@ -70,13 +83,15 @@ export function CardsSection() {
                 <p className="text-base sm:text-xl font-medium text-slate-500">
                   Shop offline like a pro by adding to Apple Pay or Google pay
                 </p>
-                <Image
-                  src={phoneCardSrc}
-                  alt="Digital wallet preview"
-                  width={520}
-                  height={520}
-                  className="h-auto w-full"
-                />
+                <motion.div style={{ y: rightImageY }}>
+                  <Image
+                    src={phoneCardSrc}
+                    alt="Digital wallet preview"
+                    width={520}
+                    height={520}
+                    className="h-auto w-full"
+                  />
+                </motion.div>
               </div>
             </Card>
           </motion.div>

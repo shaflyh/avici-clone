@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { CreditCard, KeyRound, PiggyBank } from "lucide-react";
 import Image from "next/image";
+import { useRef } from "react";
 
 import { Container } from "@/components/common/container";
 import { Card } from "@/components/ui/card";
@@ -33,8 +34,17 @@ const itemVariants = {
 };
 
 export function BenefitsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const phoneImageY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
   return (
-    <section>
+    <section ref={sectionRef}>
       <Container>
         <motion.div
           className="space-y-8"
@@ -77,7 +87,7 @@ export function BenefitsSection() {
                 {/* Right Content - Phone with floating cards */}
                 <div className="relative flex items-center justify-center">
                   {/* Phone Image */}
-                  <div className="relative z-10">
+                  <motion.div className="relative z-10" style={{ y: phoneImageY }}>
                     <Image
                       src={appBenefitSrc}
                       alt="Avici app showing balance"
@@ -85,7 +95,7 @@ export function BenefitsSection() {
                       height={640}
                       className="h-auto w-48 sm:w-80 md:w-120"
                     />
-                  </div>
+                  </motion.div>
 
                   {/* Floating Card - Security */}
                   <motion.div
