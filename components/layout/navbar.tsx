@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 export function Navbar() {
   return (
     <header className="sticky top-4 z-50 mx-4 mt-4">
-      <nav className="mx-auto max-w-7xl rounded-full border border-slate-200/50 bg-slate-100/70 px-6 py-3 shadow-lg backdrop-blur-xl">
+      <nav className="mx-auto max-w-7xl rounded-full border border-slate-200/10 bg-slate-100/30 px-6 py-3 shadow-lg backdrop-blur-xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-lg font-semibold tracking-wide text-slate-900">
             <Image
