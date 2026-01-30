@@ -3,37 +3,54 @@ import Image from "next/image";
 import { Container } from "@/components/common/container";
 import { Button } from "@/components/ui/button";
 
-const phoneSrc = "/images/hero-phone.avif";
+const phoneSrc = "/images/phone-app-balance.avif";
+const leatherTextureSrc = "/images/leather-texture.jpg";
 
 export function DownloadSection() {
   return (
     <section className="pb-20">
       <Container>
-        <div className="relative overflow-hidden rounded-[48px] bg-black px-6 py-12 text-white sm:px-12">
-          <div className="grid gap-10 md:grid-cols-2 md:items-center">
-            <div className="space-y-4">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
-                Money, forever yours
-              </p>
-              <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-                Own your wallet. Spend everywhere.
+        <div className="relative overflow-hidden rounded-[48px] bg-black text-white">
+          {/* Leather texture background */}
+          <div className="absolute inset-0">
+            <Image
+              src={leatherTextureSrc}
+              alt=""
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          <div className="relative grid min-h-125 md:grid-cols-2">
+            {/* Left content */}
+            <div className="flex flex-col justify-center space-y-6 px-8 py-16 sm:px-16 lg:px-16">
+              <h2 className="text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                Money, Forever
+                <br />
+                yours
               </h2>
-              <p className="text-sm text-white/70">
-                Switch to Avici and keep custody while accessing the
-                world&apos;s most accepted card network.
+              <p className="max-w-sm text-xl text-white sm:text-2xl">
+                Ditch the wallets, skip the exchanges, and forget the banks.
               </p>
-              <Button className="rounded-full bg-white px-6 text-sm text-black hover:bg-white/90">
-                Download app
-              </Button>
+              <div>
+                <Button className="rounded-full bg-white px-8 py-6 text-base font-medium text-black hover:bg-white/90">
+                  Download App
+                </Button>
+              </div>
             </div>
-            <div className="relative flex items-end justify-center md:justify-end">
-              <Image
-                src={phoneSrc}
-                alt="Avici app on phone"
-                width={420}
-                height={820}
-                className="h-auto w-full max-w-xs translate-y-10"
-              />
+
+            {/* Right phone - clipped */}
+            <div className="relative hidden overflow-hidden md:block">
+              <div className="absolute right-0 top-8 w-85 lg:right-8 lg:w-95">
+                <Image
+                  src={phoneSrc}
+                  alt="Avici app on phone"
+                  width={420}
+                  height={820}
+                  className="h-auto w-full"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>
