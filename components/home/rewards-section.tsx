@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { Plane, Car, Bed, Utensils, Cross, Briefcase } from "lucide-react";
@@ -92,22 +93,32 @@ export function RewardsSection() {
   return (
     <section className="py-16 md:py-24">
       <Container>
-        <div className="text-center">
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "0px 0px -30% 0px" }}
+          transition={{ duration: 0.8, ease: [0, 0, 0.2, 1] }}
+        >
           <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
             Visa Card
           </h2>
           <h2 className="mt-1 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
             Rewards and Benefits
           </h2>
-        </div>
+        </motion.div>
       </Container>
 
       {/* Carousel - Full width edge to edge */}
-      <div
+      <motion.div
         className="mt-10 overflow-hidden"
         ref={emblaRef}
         onPointerEnter={onPointerEnter}
         onPointerLeave={onPointerLeave}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "0px 0px -20% 0px" }}
+        transition={{ duration: 0.8, ease: [0, 0, 0.2, 1], delay: 0.2 }}
       >
         <div className="flex">
           {rewards.map((reward) => {
@@ -132,7 +143,7 @@ export function RewardsSection() {
             );
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

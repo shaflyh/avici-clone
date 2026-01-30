@@ -70,10 +70,10 @@ export function DownloadSection() {
             />
           </motion.div>
 
-          <div className="relative grid min-h-140 md:grid-cols-2">
+          <div className="relative flex min-h-140 flex-col md:grid md:grid-cols-2">
             {/* Left content */}
             <motion.div
-              className="flex flex-col justify-center space-y-6 px-8 py-16 sm:px-16 lg:px-16"
+              className="flex flex-col justify-center space-y-6 px-8 py-12 sm:px-16 md:py-16 lg:px-16"
               variants={containerVariants}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
@@ -109,9 +109,9 @@ export function DownloadSection() {
             </motion.div>
 
             {/* Right phone - clipped */}
-            <div className="relative hidden overflow-hidden md:block">
+            <div className="relative flex-1 overflow-hidden md:h-auto md:flex-none">
               <motion.div
-                className="absolute right-8 top-16 w-80 lg:right-16 lg:w-85"
+                className="absolute left-1/2 top-0 w-48 -translate-x-1/2 sm:w-56 md:left-auto md:right-8 md:top-16 md:w-80 md:translate-x-0 lg:right-16 lg:w-85"
                 variants={phoneVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Container } from "@/components/common/container";
 
 const phoneFrame = "/images/phone-frame.avif";
@@ -58,19 +59,32 @@ export function HeroSection() {
     <section className="relative">
       {/* Title and subtitle - scrolls normally */}
       <Container className="flex flex-col items-center pt-16 text-center">
-        <h1 className="max-w-4xl text-balance text-5xl font-semibold tracking-tight text-slate-900 sm:text-8xl">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-4xl text-balance text-5xl font-semibold tracking-tight text-slate-900 sm:text-8xl"
+        >
           Hold Crypto, get Cash
-        </h1>
-        <p className="mt-8 max-w-3xl text-balance text-base text-slate-500 sm:text-lg">
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          className="mt-8 max-w-3xl text-balance text-base text-slate-500 sm:text-lg"
+        >
           Spend easily via Secured credit card using crypto while having full
           control of your funds.
-        </p>
+        </motion.p>
       </Container>
 
       {/* Phone container - only this part is sticky */}
-      <div
+      <motion.div
         ref={phoneContainerRef}
         className="relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
         style={{
           // Height for: tilt animation + scroll animation
           height: `calc(65vh + ${TILT_DISTANCE + SCROLL_DISTANCE}px)`,
@@ -78,11 +92,11 @@ export function HeroSection() {
       >
         {/* Sticky phone - centered on screen */}
         <div
-          className="sticky top-0 flex h-screen items-center justify-center pt-24"
+          className="sticky top-0 flex h-screen items-center justify-center pt-24 overflow-hidden"
           style={{ perspective: "1000px" }}
         >
           <div
-            className="relative w-full max-w-sm px-4"
+            className="relative w-full max-w-80 sm:max-w-sm px-4"
             style={{
               transform: `rotateX(${currentTilt}deg) scale(${currentScale})`,
               transformStyle: "preserve-3d",
@@ -123,7 +137,7 @@ export function HeroSection() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

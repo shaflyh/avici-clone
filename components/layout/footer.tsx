@@ -1,5 +1,9 @@
-import { Container } from "@/components/common/container";
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
+
+import { Container } from "@/components/common/container";
 
 // X (Twitter) icon
 function XIcon({ className }: { className?: string }) {
@@ -91,76 +95,114 @@ const tosLinks = [
   { label: "ToS", href: "#" },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.1, 0.25, 1] as const,
+    },
+  },
+};
+
 export function Footer() {
   return (
     <footer className="bg-white">
       <Container className="py-12">
-        {/* Top section */}
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            <Image
-              src="/avici-icon.avif"
-              alt="Avici"
-              width={40}
-              height={40}
-              className="size-10"
-            />
-            <span className="text-xl font-medium text-slate-900">avici</span>
-          </div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "0px 0px -20% 0px" }}
+        >
+          {/* Top section */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between"
+          >
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <Image
+                src="/avici-icon.avif"
+                alt="Avici"
+                width={40}
+                height={40}
+                className="size-10"
+              />
+              <span className="text-xl font-medium text-slate-900">avici</span>
+            </div>
 
-          {/* Social icons */}
-          <div className="flex items-center gap-4">
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                className="flex size-10 items-center justify-center rounded-full text-slate-900 transition-colors hover:bg-slate-100"
-              >
-                <social.icon className="size-5" />
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="my-8 border-t border-slate-200" />
-
-        {/* Bottom section */}
-        <div className="flex flex-col gap-6 text-sm md:flex-row md:items-start md:justify-between">
-          {/* Copyright */}
-          <p className="text-slate-500">
-            © 2025 All rights reserved. 651 N Broad St, Suite 201, Middletown,
-            19709, Avici Inc.
-          </p>
-
-          {/* Links */}
-          <div className="flex flex-col items-start gap-3 md:items-end">
-            <div className="flex flex-wrap gap-6">
-              {footerLinks.map((link) => (
+            {/* Social icons */}
+            <div className="flex items-center gap-4">
+              {socialLinks.map((social) => (
                 <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-slate-600 transition-colors hover:text-slate-900"
+                  key={social.label}
+                  href={social.href}
+                  aria-label={social.label}
+                  className="flex size-10 items-center justify-center rounded-full text-slate-900 transition-colors hover:bg-slate-100"
                 >
-                  {link.label}
+                  <social.icon className="size-5" />
                 </a>
               ))}
             </div>
-            <div className="flex flex-wrap gap-6">
-              {tosLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-slate-600 transition-colors hover:text-slate-900"
-                >
-                  {link.label}
-                </a>
-              ))}
+          </motion.div>
+
+          {/* Divider */}
+          <motion.div
+            variants={itemVariants}
+            className="my-8 border-t border-slate-200"
+          />
+
+          {/* Bottom section */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col gap-6 text-sm md:flex-row md:items-start md:justify-between"
+          >
+            {/* Copyright */}
+            <p className="text-slate-500">
+              © 2025 All rights reserved. 651 N Broad St, Suite 201, Middletown,
+              19709, Avici Inc.
+            </p>
+
+            {/* Links */}
+            <div className="flex flex-col items-start gap-3 md:items-end">
+              <div className="flex flex-wrap gap-6">
+                {footerLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-slate-600 transition-colors hover:text-slate-900"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-6">
+                {tosLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-slate-600 transition-colors hover:text-slate-900"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </Container>
     </footer>
   );

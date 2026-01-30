@@ -14,7 +14,7 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <nav className="mx-auto max-w-7xl rounded-full border border-slate-200/10 bg-slate-300/30 px-8 py-4 shadow-lg backdrop-blur-xl">
+      <nav className="mx-auto max-w-7xl rounded-full border border-slate-200/10 bg-slate-300/30 px-4 sm:px-8 py-3 sm:py-4 shadow-lg backdrop-blur-xl">
         <div className="flex items-center justify-between">
           <Link
             href="/"
