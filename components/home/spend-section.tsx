@@ -12,7 +12,7 @@ const cardsIcon = "/images/visa-cards-icon.avif";
 
 export function SpendSection() {
   return (
-    <section className="py-20">
+    <section className="pt-20">
       <Container>
         <div className="mb-32">
           <p className="text-6xl font-semibold text-slate-200 md:text-8xl">
