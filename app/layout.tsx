@@ -11,6 +11,9 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Avici",
   description: "Hold crypto, get cash.",
+  appleWebApp: {
+    title: "Avici",
+  },
 };
 
 export default function RootLayout({
