@@ -1,73 +1,153 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { CreditCard, KeyRound, PiggyBank } from "lucide-react";
 import Image from "next/image";
 
 import { Container } from "@/components/common/container";
 import { Card } from "@/components/ui/card";
 
-const phoneSrc = "/images/hero-phone.avif";
+const appBenefitSrc = "/images/phone-app-benefit.avif";
+const visaBenefitSrc = "/images/visa-benefit.avif";
 
 export function BenefitsSection() {
   return (
     <section>
       <Container>
         <div className="space-y-8">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
-              Avici benefits
-            </p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-              Your funds, your control.
-            </h2>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="md:col-span-2 rounded-3xl border-none bg-slate-50 p-6">
-              <div className="flex flex-col gap-6 md:flex-row md:items-center">
-                <div className="space-y-3">
-                  <h3 className="text-lg font-semibold text-slate-900">
-                    Your funds, your control
-                  </h3>
-                  <p className="text-sm text-slate-500">
-                    Self-custody by design with transparent onchain activity.
-                  </p>
+          {/* Section Title */}
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+            Avici Benefits
+          </h2>
+
+          {/* First Row - Large Card */}
+          <Card className="h-120 rounded-3xl overflow-hidden border-none bg-slate-100 p-8 shadow-none md:p-12">
+            <div className="grid gap-8 md:grid-cols-2">
+              {/* Left Content */}
+              <div className="flex flex-col justify-center h-90">
+                {/* Piggy Bank Icon */}
+                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-sm">
+                  <PiggyBank className="h-8 w-8 text-slate-900" />
                 </div>
-                <Image
-                  src={phoneSrc}
-                  alt="Funds preview"
-                  width={420}
-                  height={420}
-                  className="h-auto w-full max-w-xs"
-                />
+
+                <h3 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                  Your funds, Your
+                  <br />
+                  control
+                </h3>
+
+                <p className="mt-4 max-w-sm text-base text-slate-600">
+                  Self-custody sounds tricky, but we&apos;ve made it easy with
+                  smart tools like account abstraction and passkeys!
+                </p>
+              </div>
+
+              {/* Right Content - Phone with floating cards */}
+              <div className="relative flex items-center justify-center">
+                {/* Phone Image */}
+                <div className="relative z-10">
+                  <Image
+                    src={appBenefitSrc}
+                    alt="Avici app showing balance"
+                    width={320}
+                    height={640}
+                    className="h-auto w-120"
+                  />
+                </div>
+
+                {/* Floating Card - Security */}
+                <motion.div
+                  className="absolute left-0 top-70 z-20 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-lg"
+                  animate={{
+                    y: [0, -8, 0],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100">
+                    <KeyRound className="h-5 w-5 text-slate-900" />
+                  </div>
+                  <span className="text-sm font-medium text-slate-900">
+                    Security made
+                    <br />
+                    easy with passkeys
+                  </span>
+                </motion.div>
+
+                {/* Floating Card - No transaction limits */}
+                <motion.div
+                  className="absolute top-85 right-0 z-20 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-lg"
+                  animate={{
+                    y: [0, -10, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5,
+                  }}
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900">
+                    <CreditCard className="h-5 w-5 text-white" />
+                  </div>
+                  <span className="text-sm font-medium text-slate-900">
+                    No transaction
+                    <br />
+                    limits
+                  </span>
+                </motion.div>
+              </div>
+            </div>
+          </Card>
+
+          {/* Second Row - Three Cards */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {/* Visa Benefits Card */}
+            <Card className="rounded-3xl border-none bg-slate-100 p-8 shadow-none">
+              <div className="flex flex-col items-center text-center">
+                <h3 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                  Visa Benefits
+                </h3>
+                <p className="mt-1 text-xl text-slate-500">
+                  Avenue to TradeFI rewards
+                </p>
+
+                {/* Visa Benefit Illustration */}
+                <div className="mt-6">
+                  <Image
+                    src={visaBenefitSrc}
+                    alt="Visa benefits illustration"
+                    width={300}
+                    height={200}
+                    className="h-auto w-full max-w-100"
+                  />
+                </div>
               </div>
             </Card>
-            <Card className="rounded-3xl border-none bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-900">Security</h3>
-              <p className="mt-2 text-sm text-slate-500">
-                Hardware-secured keys and account recovery.
-              </p>
-            </Card>
-            <Card className="rounded-3xl border-none bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-900">
-                Visa Benefits
-              </h3>
-              <p className="mt-2 text-sm text-slate-500">
-                Rewards, lounge access, and priority service.
-              </p>
-            </Card>
-            <Card className="rounded-3xl border-none bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-900">
-                No hidden fees
-              </h3>
-              <p className="mt-2 text-sm text-slate-500">
-                Clear pricing with transparent FX rates.
-              </p>
-            </Card>
-            <Card className="rounded-3xl border-none bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-slate-900">
-                Simple onchain
-              </h3>
-              <p className="mt-2 text-sm text-slate-500">
-                Instant top ups with stablecoins or ETH.
-              </p>
-            </Card>
+
+            {/* Right Column - Two Stacked Cards */}
+            <div className="flex flex-col gap-6">
+              {/* No Hidden Fee Card */}
+              <Card className="flex-1 rounded-3xl border-none bg-slate-100 p-8 shadow-none gap-2">
+                <h3 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                  No Hidden Fee
+                </h3>
+                <p className="text-3xl text-slate-500">No Gas Fee</p>
+                <p className="text-3xl text-slate-500">No Interchange Fee</p>
+              </Card>
+
+              {/* Simple Card */}
+              <Card className="flex-1 rounded-3xl border-none bg-slate-100 p-8 shadow-none gap-2">
+                <h3 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                  Simple
+                </h3>
+                <p className="text-3xl text-slate-500">Onchain</p>
+                <p className="text-3xl text-slate-500">Transparent</p>
+              </Card>
+            </div>
           </div>
         </div>
       </Container>
